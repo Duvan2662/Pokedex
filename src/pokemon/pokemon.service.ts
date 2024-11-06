@@ -65,8 +65,24 @@ export class PokemonService {
     return pokemon;
   }
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  async update(busqueda: string, updatePokemonDto: UpdatePokemonDto) {
+    const pokemon = await this.findOne(busqueda);
+    if (updatePokemonDto.name) {
+      updatePokemonDto.name = updatePokemonDto.name.toLowerCase();
+    }
+
+    try {
+      await pokemon.updateOne(updatePokemonDto);
+      return {...pokemon.toJSON(),...updatePokemonDto};
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new BadRequestException(`Pokemon exist in base of data ${JSON.stringify(error.keyValue)}`)
+      }
+      console.log(error);
+
+      throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`)
+    }
+    
   }
 
   remove(id: number) {
