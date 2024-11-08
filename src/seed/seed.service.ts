@@ -22,7 +22,7 @@ export class SeedService {
 
     //Sirve para eliminar los datos que ya existen en la base de datos 
     //DELETE * FROM Pokemons
-    const dataOfBase = await this.pokemonServices.findAll();
+    const dataOfBase = await this.pokemonServices.findAllOfSeed();
     dataOfBase.forEach(async({_id})=> {
       await this.pokemonServices.remove(_id.toString())
     })
