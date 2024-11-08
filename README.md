@@ -60,3 +60,13 @@ $ http://localhost:3000/api/v2/seed
 $ docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
 ```
 
+
+
+# NOTAS
+1. Para visualizar los 10 primeros pokemon desde mi app utilizar la siguiente direccion 
+
+```https://pokedex-15nt.onrender.com/api/v2/pokemon```
+
+2. Para visualizar un pokemon especifico utilizar la siguiente direccion cambiando el numero al final en este caso es el 26 raichu
+```https://pokedex-15nt.onrender.com/api/v2/pokemon/26```
+
