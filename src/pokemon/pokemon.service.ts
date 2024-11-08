@@ -4,7 +4,7 @@ import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Pokemon } from './entities/pokemon.entity';
 import { isValidObjectId, Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { NotFoundError } from 'rxjs';
+import axios, { AxiosInstance } from 'axios';
 
 @Injectable()
 export class PokemonService {
@@ -13,9 +13,9 @@ export class PokemonService {
 
     @InjectModel(Pokemon.name)
     private readonly pokemonModel:Model<Pokemon>
-  ){
+  ){}
 
-  }
+  private readonly axios:AxiosInstance = axios;
 
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.toLowerCase();
@@ -29,8 +29,8 @@ export class PokemonService {
     
   }
 
-  findAll() {
-    return `This action returns all pokemon`;
+  async findAll(): Promise<Pokemon[]> {
+    return this.pokemonModel.find().exec();
   }
 
   async findOne(busqueda: string) {
@@ -94,5 +94,9 @@ export class PokemonService {
     }
     console.log(error);
     throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`)
+  }
+
+  async insertArrayData(arrayOfPokemons:CreatePokemonDto[]){
+    await this.pokemonModel.insertMany(arrayOfPokemons);
   }
 }
