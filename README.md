@@ -28,6 +28,10 @@ $ npm i -g @nestjs/cli
 ```bash
 $ docker-compose up -d
 ```
+5. Reconstruir la base de datos con la semilla si no se tienen ningun Pokemon usando Postman realizar una peticion GET con el siguiente endpoint  
+```bash
+$ http://localhost:3000/api/v2/seed
+```
 
 ## Stack usado
 * Mongo DB
