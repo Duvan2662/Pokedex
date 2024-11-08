@@ -7,12 +7,14 @@ import { CommonModule } from './common/common.module';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { EnvConfiguration } from './common/config/env.config';
+import { JoiValidationSchema } from './common/config/joi.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot(
       {
-        load:[EnvConfiguration]
+        load:[EnvConfiguration],
+        validationSchema: JoiValidationSchema,
       }
     ), //Necesario el paquete leer la guia de fernando en Nest variables de entorno ultima hoja
     ServeStaticModule.forRoot({
